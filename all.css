@@ -1,0 +1,32 @@
+img{
+    max-height: 300px;
+    padding: 10px 20px 0 0;
+}
+
+#myscreencanvas{
+    height: 300px;
+    width: 630px;
+    display: inline-block;
+}
+#myscreencanvas >div {
+    float: left;
+}
+[draggable=true] {
+    cursor: grab;
+    margin-right: 4px;
+    
+}
+#droppable{
+    height: 300px;
+    width: 600px;
+    display: block;
+    margin: 10px auto;
+}
+.droppable-child{
+    float: left;
+    border: 1px solid #eee;
+}
+.hoverBox{
+    background: #eaf2d7;
+    border: 1px solid #049372;
+}
