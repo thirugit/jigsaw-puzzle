@@ -43,6 +43,8 @@ function drag(ev) {
 function drop(ev) {
     ev.preventDefault();
     var data = ev.dataTransfer.getData('text');
+    console.log(canvasBoxes,parseInt(ev.target.id.replace('myscreencanvas', '').replace('-droppable',''),10),
+    window.canvasBoxes.indexOf(parseInt(ev.dataTransfer.getData('tile'),10)));
     if(parseInt(ev.target.id.replace('myscreencanvas', '').replace('-droppable',''),10) === 
     window.canvasBoxes.indexOf(parseInt(ev.dataTransfer.getData('tile'),10)))
         ev.target.appendChild(document.getElementById(data));
@@ -59,15 +61,15 @@ function shuffleArray(array) {
 window.addEventListener('load', function () {
     
     var image  = document.getElementById('img'),
-        row = 2,
-        column = 3,
+        row = 4,
+        column = 7,
         canvasBoxesX= Array.apply(0,new Array(row*column)).map(function(_,i){ return i; });
     shuffleArray(canvasBoxesX);
     window.canvasBoxes = canvasBoxesX.slice();
     for(var i=0;i<row*column;i++){
         var canvasDraggable = document.createElement('div'),
             canvasDroppable = document.createElement('div'),
-            emptyCanvas = document.createElement('canvas');
+            emptyCanvas = document.createElement('div');
         emptyCanvas.width = image.width/column;
         emptyCanvas.height = image.height/row;
         canvasDraggable.setAttribute('id','myscreencanvas'+i+'-draggable');
@@ -97,12 +99,18 @@ window.addEventListener('load', function () {
     }
     for(var k=0;k<row;k++){
         for(var l=0;l<column;l++){
-            var canvas = document.getElementById('myscreencanvas'+canvasBoxesX[0]),
-                ctx    = canvas.getContext('2d');
+            var canvas = document.getElementById('myscreencanvas'+canvasBoxesX[0]);
+                //ctx    = canvas.getContext('2d');
             canvasBoxesX.shift();
-            var clip   = getClippedRegion(image, l*(image.width/column), 
+            /* var clip   = getClippedRegion(image, l*(image.width/column), 
             k*(image.height/row), image.width/column, image.height/row);
-            ctx.drawImage(clip, 0, 0, image.width/column, image.height/row);
+            ctx.drawImage(clip, 0, 0, image.width/column, image.height/row); */
+            canvas.style.width = image.width/column+'px';
+            canvas.style.height = image.height/row+'px';
+            canvas.style.backgroundImage = "url('img.jpeg')";
+            canvas.style.backgroundPositionX = -l*(image.width/column)+'px';
+            canvas.style.backgroundPositionY = -k*(image.height/row)+'px';
+
         }
     }
 
